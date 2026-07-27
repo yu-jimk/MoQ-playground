@@ -1,0 +1,10 @@
+# stream / datagram が共有する QUIC(TLS)設定ライブラリ。
+[package]
+name = "transport"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+quinn.workspace = true
+rcgen.workspace = true

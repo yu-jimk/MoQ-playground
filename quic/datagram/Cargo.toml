@@ -1,0 +1,21 @@
+# QUIC datagram で ping/pong する client / server。
+[package]
+name = "datagram"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+bytes.workspace = true
+quinn.workspace = true
+tokio.workspace = true
+transport = { path = "../transport" }
+
+# bin 名が stream と衝突しないように明示する。
+[[bin]]
+name = "datagram-server"
+path = "src/bin/server.rs"
+
+[[bin]]
+name = "datagram-client"
+path = "src/bin/client.rs"

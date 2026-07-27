@@ -1,0 +1,21 @@
+# QUIC の双方向ストリームで ping/pong する最小の client / server。
+[package]
+name = "stream"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+quinn.workspace = true
+tokio.workspace = true
+transport = { path = "../transport" }
+
+# ワークスペースで target/ を共有するため、bin 名が datagram と衝突しない
+# ように明示する(ファイル名は server.rs/client.rs のまま)。
+[[bin]]
+name = "stream-server"
+path = "src/bin/server.rs"
+
+[[bin]]
+name = "stream-client"
+path = "src/bin/client.rs"
