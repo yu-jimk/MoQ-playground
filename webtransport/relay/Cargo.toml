@@ -1,0 +1,27 @@
+# WebTransport(HTTP/3)上の MoQ リレー。
+#   - ブラウザ(@moq/publish, @moq/watch)からの WebTransport 接続を受ける
+#   - 接続ごとに moq-net セッションを張り、全接続で 1 つの origin を共有する
+#   - origin が Track一覧 / 購読者管理 / キャッシュ / Fan-out を内部で担うので、
+#     リレー自身は「接続を受けて共有 origin に繋ぐ」だけでよい
+[package]
+name = "relay"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+tokio.workspace = true
+rcgen.workspace = true
+# 証明書の有効期限(ブラウザは serverCertificateHashes に 14 日以内を要求)を
+# 組み立てるために time を使う。rcgen 0.14 が公開型で time を使っている。
+time = "0.3"
+
+# WebTransport サーバ本体。aws-lc-rs ではなく ring を使い、暗号プロバイダを揃える。
+web-transport-quinn = { version = "0.11.12", default-features = false, features = ["ring"] }
+
+# MoQ の pub/sub セッション層。共有 origin で Fan-out する。
+moq-net = "0.2.0"
+
+[[bin]]
+name = "relay"
+path = "src/main.rs"
