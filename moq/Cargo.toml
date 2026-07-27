@@ -1,0 +1,24 @@
+# Media over QUIC の pub/sub を moq-net で実装する(moq-native は使わない)。
+#   publisher: サーバを立てて broadcast を配信する
+#   subscriber: 接続して track を購読し、届いた frame を表示する
+#
+# moq-native が担っていた QUIC/TLS のセットアップは、quinn +
+# web-transport-quinn を直接使って src/lib.rs で自前で組み立てる。
+[package]
+name = "moq"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+tokio.workspace = true
+quinn.workspace = true
+rcgen.workspace = true
+transport = { path = "../quic/transport" }
+
+# MoQ の pub/sub セッション層。
+moq-net = "0.2.0"
+# 生 QUIC 接続を moq-net が扱う web_transport_trait::Session に包むために使う。
+# aws-lc-rs ではなく ring を使い、quinn と暗号プロバイダを揃える。
+web-transport-quinn = { version = "0.11.12", default-features = false, features = ["ring"] }
+url = "2.5"
