@@ -24,3 +24,23 @@ target
 # Added by cargo
 
 /target
+
+# Web アプリ (Vite/React/pnpm) — webtransport/web/
+webtransport/web/node_modules
+webtransport/web/dist
+webtransport/web/.vite
+**/.vite/
+# Vite / TS のビルド情報キャッシュ
+*.tsbuildinfo
+# npm/yarn を使った場合のログ
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+# relay が実行時に生成する証明書ハッシュ(毎回変わる)
+webtransport/web/public/cert-hash.hex
+
+# エディタ / OS
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
