@@ -1,0 +1,27 @@
+# webtransport/web/ と互換な Rust の MoQ クライアント。
+#   - relay(WebTransport/HTTP3)へ、自己署名証明書を SHA-256 ハッシュでピン留めして接続
+#   - チャット(broadcast `chat/<name>` の track "messages")を publish / subscribe
+#   - announce で他の配信(メディア broadcast)も発見して一覧表示する
+# メディアの映像デコードは行わない(存在を知らせるだけ)。チャットは web と相互運用できる。
+[package]
+name = "client"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+tokio.workspace = true
+
+# WebTransport クライアント。relay と暗号プロバイダ(ring)を揃える。
+web-transport-quinn = { version = "0.11.12", default-features = false, features = ["ring"] }
+# MoQ の pub/sub。
+moq-net = "0.2.0"
+# 証明書検証スキップ(skip_server_verification)を再利用する。
+transport = { path = "../../quic/transport" }
+# チャットのペイロード(web と同じ {"user","text"} JSON)。
+serde_json = "1"
+url = "2.5"
+
+[[bin]]
+name = "moq-client"
+path = "src/main.rs"
