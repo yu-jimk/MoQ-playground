@@ -1,4 +1,4 @@
-# MoQ（Media over QUIC）
+# MoQ（Media over QUIC）-playground
 
 QUIC の生の API から、ブラウザで動くライブ配信までのテスト用リポジトリ。
 下のレイヤから積み上がる3 グループに分けている。
